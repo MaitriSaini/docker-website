@@ -23,7 +23,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 8080:80 ${DOCKER_IMAGE}'
+                sh 'docker run -d -p 887:80 ${DOCKER_IMAGE}'
             }
         }
 
