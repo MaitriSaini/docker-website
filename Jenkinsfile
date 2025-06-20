@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'yourdockerhubusername/barista-cafe'
-        DOCKER_CREDENTIALS_ID = 'dockerhub-creds-id'  // Set this in Jenkins Credentials
+        DOCKER_CREDENTIALS_ID = 'dockerhub-creds-id'  
     }
 
     stages {
