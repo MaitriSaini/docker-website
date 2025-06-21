@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = 'yourdockerhubusername/barista-cafe'
-        DOCKER_CREDENTIALS_ID = 'dockerhub-creds-id'  
-    }
-
     stages {
         stage('Clone Repo') {
             steps {
@@ -15,26 +10,25 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("${DOCKER_IMAGE}")
-                }
+                sh 'docker build -t barista-app .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 8080:80 ${DOCKER_IMAGE}'
+                sh 'docker run -d -p 8080:80 barista-app'
             }
         }
 
         stage('Push to DockerHub') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
-                        docker.image("${DOCKER_IMAGE}").push('latest')
-                    }
+                withCredentials([usernamePassword(credentialsId: 'your-dockerhub-credentials-id', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                    sh 'docker tag barista-app $DOCKER_USERNAME/barista-app'
+                    sh 'docker push $DOCKER_USERNAME/barista-app'
                 }
             }
         }
     }
 }
+
