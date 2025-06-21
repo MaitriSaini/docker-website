@@ -21,11 +21,13 @@ pipeline {
         }
 
         stage('Push to DockerHub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'your-dockerhub-credentials-id', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-                    sh 'docker tag barista-app $DOCKER_USERNAME/barista-app'
-                    sh 'docker push $DOCKER_USERNAME/barista-app'
+    steps {
+        withCredentials([usernamePassword(credentialsId: '57ac0801-17b3-46d6-bd3e-297340019450', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+            sh """
+                docker login -u $DOCKER_USER -p $DOCKER_PASS
+                docker tag barista-app $DOCKER_USER/barista-app
+                docker push $DOCKER_USER/barista-app
+            """
                 }
             }
         }
