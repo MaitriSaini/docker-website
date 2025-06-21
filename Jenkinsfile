@@ -25,8 +25,8 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: '57ac0801-17b3-46d6-bd3e-297340019450', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
             sh """
                 docker login -u $DOCKER_USER -p $DOCKER_PASS
-                docker tag barista-app maitrisaini18/barista-app 
-                docker push maitrisaini18/barista-app  
+                docker tag barista-app maitrisaini/barista-app 
+                docker push maitrisaini/barista-app  
             """
                 }
             }
