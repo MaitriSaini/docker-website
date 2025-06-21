@@ -16,7 +16,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 1808:80 barista-app'
+                sh 'docker run -d -p 358:80 barista-app'
             }
         }
 
@@ -25,8 +25,8 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: '57ac0801-17b3-46d6-bd3e-297340019450', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
             sh """
                 docker login -u $DOCKER_USER -p $DOCKER_PASS
-                docker tag barista-app $DOCKER_USER/barista-app
-                docker push $DOCKER_USER/barista-app
+                docker tag barista-app maitrisaini18/barista-app 
+                docker push maitrisaini18/barista-app  
             """
                 }
             }
