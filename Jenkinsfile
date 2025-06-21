@@ -16,7 +16,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 8081:80 barista-app'
+                sh 'docker run -d -p 1808:80 barista-app'
             }
         }
 
